@@ -3,24 +3,24 @@ app = Flask(__name__)
 
 @app.route("/")
 def welcome():
-    return "Welcome to the Flask"
+    return render_template("index.html")
 
-@app.route("/Calculator",methods=["GET", "POST"])
+@app.route("/",methods=["POST"])
 def math_opretion():
-    operation = request.json["operation"]
-    n1 = request.json["number1"]
-    n2 = request.json["number2"]
+    operation = request.form.get("Operation")
+    n1 = request.form.get("Number1")
+    n2 = request.form.get("Number2")
     
-    if operation=="add":
+    if operation=="Addition":
         result = int(n1)+int(n2)
-    elif operation=="multiply":
-        result = int(n1)*int(n2)
-    elif operation=="division":
-        result = int(n1)/int(n2)
-    else:
+    elif operation=="Subtraction":
         result = int(n1)-int(n2)
+    elif operation=="Multiplication":
+        result = int(n1)*int(n2)
+    elif operation=="Division":
+        result = int(n1)/int(n2)
         
-    return jsonify(result)
+    return render_template("index.html", result=result)
 
 
 if __name__=="__main__":
