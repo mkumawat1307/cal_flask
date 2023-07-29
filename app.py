@@ -1,26 +1,26 @@
-from flask import Flask,request,render_template
+from flask import Flask,request,render_template,jsonify
 app = Flask(__name__)
 
 @app.route("/")
 def welcome():
     return "Welcome to the Flask"
 
-@app.rroute("Calculator", method =["GET","POST"])
+@app.route("/Calculator",methods=["GET", "POST"])
 def math_opretion():
     operation = request.json["operation"]
     n1 = request.json["number1"]
     n2 = request.json["number2"]
     
     if operation=="add":
-        result = n1+n2
+        result = int(n1)+int(n2)
     elif operation=="multiply":
-        result = n1*n2
+        result = int(n1)*int(n2)
     elif operation=="division":
-        result = n1/n2
+        result = int(n1)/int(n2)
     else:
-        result = n1-n2
+        result = int(n1)-int(n2)
         
-    return result
+    return jsonify(result)
 
 
 if __name__=="__main__":
